@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link  type="text/css" rel="stylesheet"  href="styles.css" />
+	<script src="https://use.edgefonts.net/lobster-two.js"></script>
+</head>
+<body class="container" ng-app="TheModule">
+<div  >
+	<h3>Check whether the following button works? </h3>
+	<br><br>
+
+ 	<div class="well" ng-controller="TheController"> 
+ 		<h5 class="cursive-text-small">{{message}}</h5><br>
+ 		<button ng-click="methodGood2()" class="btn btn-danger">Click Me!
+ 		</button>
+ 	</div>
+
+
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+ </script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+ </script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js">
+</script> 
+
+<script> 
+	angular.module('TheModule', [])
+	.controller("TheController", function($scope, $timeout) {
+		$scope.message = "Original message. It would change in 2 seconds after clicking the 'Click Me!' button.";	
+	    $scope.methodBad = function(){
+		    setTimeout(function () {
+		        $scope.message = "Yes, it does!";
+		        // AngularJS unaware of update to $scope
+		    }, 2000);
+		}//method1
+
+		$scope.methodGood1 = function(){
+		    setTimeout(function () {
+		    	$scope.$apply(function () {
+		        	$scope.message = "Yes, it does!";
+		        	// AngularJS unaware of update to $scope
+		        });
+		    }, 2000);
+		}//method1
+
+		$scope.methodGood2 = function(){
+		    $timeout(function () {
+		        $scope.message = "Yes, it does!";
+		        // AngularJS unaware of update to $scope
+		    }, 2000);
+		}//method1
+	})//TheController1
+
+
+
+</script>
+</body>
+</html>

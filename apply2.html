@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link  type="text/css" rel="stylesheet"  href="styles.css" />
+	<script src="https://use.edgefonts.net/lobster-two.js"></script>
+</head>
+<body class="container" ng-app="TheModule">
+<div  class="container">
+	<h3>Check which of the following buttons work</h3>
+	<br>
+
+ 	<div ng-controller="TimeController">
+    	<h3 class="cursive-text-large">{{data.time  | date:'dd MMMM yyyy hh:sss'}}
+    	</h3>
+    <br/>
+    <button ng-click="updateTime()" class="btn btn-success">update time0</button>
+    <button id="timeButton1"  class="btn btn-info">update time1</button>
+    <button id="timeButton2"  class="btn btn-warning">update time2</button>
+    <button id="timeButton3"  class="btn btn-danger">update time3</button>
+</div>
+
+
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+ </script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+ </script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js">
+</script> 
+
+<script> 
+	angular.module('TheModule', [])
+	.controller("TimeController", function($scope) {
+ 
+        $scope.data = { time : new Date() };
+
+        $scope.updateTime = function() {
+            $scope.data.time = new Date();
+        }
+
+        document.getElementById("timeButton1")
+                .addEventListener('click', function() {
+            $scope.data.time = new Date();
+        });
+
+        document.getElementById("timeButton2")
+                .addEventListener('click', function() {
+            $scope.data.time = new Date();
+            $scope.$digest(); // this line manually calls the refresh/update cycle of angular
+        });
+
+        document.getElementById("timeButton3")
+                .addEventListener('click', function() {
+            //When the $apply() function call finishes, AngularJS calls $digest() internally, so all data bindings are updated
+            $scope.$apply(function() { 
+	            $scope.data.time = new Date();
+        	});//$scope.$apply
+        });
+    });//TimeController
+
+</script>
+</body>
+</html>
